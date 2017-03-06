@@ -1,270 +1,271 @@
 'use strict';
 
+const api = require('./api');
 const store = require('../store');
 const logic = require('./logic');
 
 const success = (data) => {
   console.log('success completed');
-  console.log(data);
 };
 
 const failure = (error) => {
   console.error(error);
-  console.log('error');
 };
 
 const signInSuccess = function() {
+  $(".prelogin").hide();
+  $(".postlogin").show();
   $("#sign-in").hide();
-  $("#sign-out").show();
-  console.log('sign-in success');
+  $('#show-records-btn').show();
+  $(".alert").hide();
+  $("#sign-in-success").show();
+  $(".homepage-desc-container").hide();
+  $("#create-record-btn").show();
 };
 
-// Student UI
-const getStudentSuccess = (data) => {
-  console.log('get student success');
+const signInFailure = function() {
+  $(".alert").hide();
+  $("#sign-in-warning").show();
+};
+
+const signUpSuccess = function() {
+  $(".alert").hide();
+  $("#sign-up").hide();
+  $("#sign-in").show();
+  $("#sign-up-success").show();
+  $("#sign-up-btn").hide();
+  $("#sign-in-btn").hide();
+};
+
+const signUpFailure = function() {
+  $(".alert").hide();
+  $("#sign-up-warning").show();
+};
+
+const changePasswordSuccess = function() {
+  $(".alert").hide();
+  $("#change-password").hide();
+  $("#change-password-success").show();
+};
+
+const changePasswordFailure = function() {
+  $(".alert").hide();
+  $("#change-password-error").show();
+};
+
+const signOutSuccess = function() {
+  $(".alert").hide();
+  $(".prelogin").show();
+  $(".postlogin").hide();
+  $(".tracker-form").hide();
+  $(".credential-form").hide();
+  $("#create-record-btn").hide();
+  $("#show-records-btn").hide();
+  $("#new-tracker-form .field-input").val("");
+  $("#sign-out-success").show().delay(1500).slideUp();
+  $("#change-password").hide();
+  $("#table-gen-id").remove();
+  $(".h1-title").remove();
+  $("#table-gen-show").remove();
+  $(".homepage-desc-container").show();
+  $("#sign-in .field-input").val("");
+  $("#sign-up .field-input").val("");
+};
+
+// To Hide Signout Warning when signing in or signing up
+
+const signOutFailure = function() {
+  $(".h1-title").remove();
+  $(".alert").hide();
+  $("#sign-out-warning").show();
+};
+
+///////////////////////
+///// Tracker UI///////
+//////////////////////
+
+const getTrackerFailure = (data) => {
+  console.log('get tracker failure');
   console.log(data);
 };
 
-const getStudentFailure = (data) => {
-  console.log('get student failure');
+const updateRow = function() {
+   $( ".update-button" ).on( "click", function() {
+     $("#create-record-btn").hide();
+    store.buttonUpdateVal = parseInt($( this ).attr("id"));
+    store.btnUpdateFnText = $( this ).parent().parent().children(".tg-td-fn").text();
+    store.btnUpdateLnText = $( this ).parent().parent().children(".tg-td-ln").text();
+    store.btnUpdateGradeText = $( this ).parent().parent().children(".tg-td-grade").text();
+    store.btnUpdateCommentText = $( this ).parent().parent().children(".tg-td-comment").text();
+    $("#show-records-btn").show();
+    $("#update-tracker-form").show();
+    $(".fn-input").val(store.btnUpdateFnText);
+    $(".ln-input").val(store.btnUpdateLnText);
+    $(".grade-input").val(store.btnUpdateGradeText);
+    $(".comments-input").text(store.btnUpdateCommentText);
+    $("#table-gen-id").remove();
+    $(".h1-title").remove();
+    $("#h1-dashboard-table").remove();
+    $("#create-record-btn").show();
+   });
+};
+
+const updateButtonInShow = function() {
+  $( "#update-record-btn" ).on( "click", function() {
+    store.buttonUpdateVal = store.showId;
+    const fullNameArr = $(".td-gen-name-show").text().split(" ");
+    const firstNameUpdate = fullNameArr[0].trim();
+    const lastNameUpdate = fullNameArr[1].trim();
+
+    const gradeArr = $(".td-gen-grade-show").text().split(": ");
+    let gradeUpdate = gradeArr[1].trim();
+
+
+    store.showUpdateFirstName = firstNameUpdate;
+    store.showUpdateLastName = lastNameUpdate;
+    store.showUpdateGradeText = gradeUpdate;
+    store.showUpdateCommentText = $(".td-gen-comments-show").text();
+    $("#update-tracker-form").show();
+    $(".fn-input").val(store.showUpdateFirstName);
+    $(".ln-input").val(store.showUpdateLastName);
+    $(".grade-input").val(store.showUpdateGradeText);
+    $(".comments-input").text(store.showUpdateCommentText);
+    $("#table-gen-show").remove();
+    $(".h1-title").remove();
+    $("#create-record-btn").show();
+  });
+};
+
+const showTrackerSuccess = (data) => {
+  console.log('show tracker success');
+  console.log(data);
+  $("#show-records-btn").show();
+  $("#update-form-error").hide();
+  updateButtonInShow();
+  $(".warning").hide();
+  $("#create-record-btn").show();
+};
+
+const showTrackerFailure = (data) => {
+  console.log('show tracker failure');
   console.log(data);
 };
 
-const showStudentSuccess = (data) => {
-  console.log('show student success');
+const createTrackerSuccess = (data) => {
+  console.log('create tracker success');
+  console.log(data);
+  let form = document.getElementById("new-tracker-form");
+  form.reset();
+  $("#new-tracker-form").hide();
+  $(".warning").hide();
+  $("#new-form-success").show();
+  $("#create-record-btn").show();
+};
+
+const createTrackerFailure = (data) => {
+  console.log('create tracker failure');
+  console.log(data);
+  $("#new-form-error").show();
+};
+
+const deleteTrackerSuccess = (data) => {
+  console.log('delete tracker success');
+  console.log(data);
+  $(".warning").hide();
+};
+
+const deleteTrackerFailure = (data) => {
+  console.log('delete tracker failure');
+
   console.log(data);
 };
 
-const showStudentFailure = (data) => {
-  console.log('show student failure');
+const updateTrackerSuccess = (data) => {
+  console.log('update tracker success');
+  console.log(data);
+  $("#update-tracker-form").hide();
+  $("#show-records-btn").show();
+  let form = document.getElementById("update-tracker-form");
+  form.reset();
+  $(".alert").hide();
+  $('#update-form-success').show();
+  $("#create-record-btn").show();
+};
+
+const updateTrackerFailure = (data) => {
+  $(".alert").hide();
+  $("#update-form-error").show();
+  console.log('update tracker failure');
   console.log(data);
 };
 
-const createStudentSuccess = (data) => {
-  console.log('create student success');
-  console.log(data);
-  $("#new-student-form").hide();
-  $("#new-setting-form").show();
-  $("#create-setting-stud-id").attr("value", store.currentStudentId);
+const showRow = function() {
+  let insertH1 = $('<h1 class="h1-title h1-show-table-generated" id="h1-show-table">Student Note:</h1>');
+  $( ".view-button" ).on( "click", function() {
+    $("#create-record-btn").hide();
+    store.buttonShowVal = parseInt($( this ).attr("id"));
+    api.showTracker()
+      .then((response) => {
+        store.showId = response.tracker.id;
+        store.showFn = response.tracker.first_name;
+        store.showLn = response.tracker.last_name;
+        store.showGrade = response.tracker.grade;
+        store.showComments = response.tracker.comments;
+
+        let showTableHtml = logic.createShowTable(store.showFn, store.showLn, store.showGrade, store.showComments);
+        $(".show-table-generated-container").append(insertH1);
+        $(".show-table-generated-container").append(showTableHtml);
+    })
+    .done(showTrackerSuccess)
+    .fail(showTrackerFailure);
+    $("#h1-dashboard-table").remove();
+    $("#table-gen-id").remove();
+    $(".h1-title").show();
+  });
+
 };
 
-const createStudentFailure = (data) => {
-  console.log('create student failure');
-  console.log(data);
+const deleteRow = function() {
+   $( ".delete-button" ).on( "click", function() {
+     $("#create-record-btn").hide();
+    store.buttonDeleteVal = $( this ).attr("id");
+    api.deleteTracker(store.buttonDeleteVal)
+      .done(deleteTrackerSuccess)
+      .fail(deleteTrackerFailure);
+    $(this).parent().parent().hide();
+    $("#delete-form-success").show().delay(1500).slideUp();
+   });
 };
 
-const deleteStudentSuccess = (data) => {
-  console.log('delete student success');
-  console.log(data);
-};
 
-const deleteStudentFailure = (data) => {
-  console.log('delete student failure');
-  console.log(data);
-};
-
-const updateStudentSuccess = (data) => {
-  console.log('update student success');
-  console.log(data);
-};
-
-const updateStudentFailure = (data) => {
-  console.log('update student failure');
-  console.log(data);
-};
-
-// Setting UI
-
-const getSettingSuccess = (data) => {
-  console.log('get setting success');
-  console.log(data);
-};
-
-const getSettingFailure = (data) => {
-  console.log('get setting failure');
-  console.log(data);
-};
-
-const showSettingSuccess = (data) => {
-  console.log('show setting success');
-  console.log(data);
-};
-
-const showSettingFailure = (data) => {
-  console.log('show setting failure');
-  console.log(data);
-};
-
-const createSettingSuccess = (data) => {
-  console.log('create setting success');
-  console.log(data);
-  $("#new-setting-form").hide();
-  $("#new-observation-form").show();
-  $("#create-observation-stud-id").attr("value", store.currentStudentId);
-  $("#create-observation-setting-id").attr("value", store.currentSettingId);
-  // $("#create-observation-number").attr("value", store.currentObsNum);
-  $("#interval-total").text(store.currentNumofIntervals);
-  // $("#interval-count").text(store.currentObsNum);
-  $("#student-observed").html('<span id="target-student">Target Student</span>');
-};
-
-const createSettingFailure = (data) => {
-  console.log('create setting failure');
-  console.log(data);
-};
-
-const deleteSettingSuccess = (data) => {
-  console.log('delete setting success');
-  console.log(data);
-};
-
-const deleteSettingFailure = (data) => {
-  console.log('delete setting failure');
-  console.log(data);
-};
-
-const updateSettingSuccess = (data) => {
-  console.log('update setting success');
-  console.log(data);
-};
-
-const updateSettingFailure = (data) => {
-  console.log('update setting failure');
-  console.log(data);
-};
-
-// Observation UI
-
-const getObservationSuccess = (data) => {
-  console.log('update observation success');
-  console.log(data);
-};
-
-const getObservationFailure = (data) => {
-  console.log('update observation failure');
-  console.log(data);
-};
-
-const showObservationSuccess = (data) => {
-  console.log('show observation success');
-  console.log(data);
-};
-
-const showObservationFailure = (data) => {
-  console.log('show observation failure');
-  console.log(data);
-};
-
-const getPastObsNumSuccess = function() {
-  console.log("onGetPastObsNumSuccess Success");
-  // events.onCreateObservation();
-};
-
-const getPastObsNumFailure = function() {
-  console.log("getPastObsNumFailure Failure");
-};
-
-const createObservationSuccess = function() {
-  console.log('create observation success');
-  // console.log("logic.withinObsInterval");
-  // console.log(logic.withinObsInterval());
-  let continueWithInterval = logic.withinObsInterval();
-
-  if ( continueWithInterval ) {
-    $("#create-observation-number").attr("value", store.currentObsNum);
-    $("#interval-count").text(store.currentObsNum);
-    logic.studentToObserve(store.currentObsNum);
-    $(".field-checkbox").prop("checked", false);
-    console.log('continue');
-  } else {
-    console.log('done');
-    // $("#new-observation-form").hide();
-  }
-};
-
-const onCreateObservationNumsSuccess = function() {
-    console.log('onCreateObservationNumsSuccess success archive');
-    // console.log("logic.withinObsInterval");
-    // console.log(logic.withinObsInterval());
-    // let continueWithInterval = logic.withinObsInterval();
-    //
-    // if ( continueWithInterval ) {
-    //   $("#create-observation-number").attr("value", store.currentObsNum);
-    //   $("#interval-count").text(store.currentObsNum);
-    //   logic.studentToObserve(store.currentObsNum);
-    //   $(".field-checkbox").prop("checked", false);
-    //   console.log('continue');
-    // } else {
-    //   console.log('done');
-    //   $("#new-observation-form").hide();
-    // }
-};
-
-const createObservationFailure = (data) => {
-  console.log('create observation failure');
-  console.log(data);
-};
-
-const onCreateObservationNumsFailure = function() {
-  console.log('onCreateObservationNumsFailure failure');
-};
-
-const deleteObservationSuccess = (data) => {
-  console.log('delete observation success');
-  console.log(data);
-};
-
-const deleteObservationFailure = (data) => {
-  console.log('delete observation failure');
-  console.log(data);
-};
-
-const updateObservationSuccess = (data) => {
-  console.log('update observation success');
-  console.log(data);
-};
-
-const updateObservationFailure = (data) => {
-  console.log('update observation failure');
-  console.log(data);
+const getTrackerSuccess = (data) => {
+  $("#create-record-btn").show();
+  deleteRow();
+  updateRow();
+  showRow();
 };
 
 module.exports = {
   success,
   failure,
-  createStudentSuccess,
-  createStudentFailure,
-  getSettingSuccess,
-  getSettingFailure,
-  showSettingSuccess,
-  showSettingFailure,
-  createSettingSuccess,
-  createSettingFailure,
-  updateSettingSuccess,
-  updateSettingFailure,
-  createObservationSuccess,
-  createObservationFailure,
-  getStudentSuccess,
-  getStudentFailure,
-  showStudentSuccess,
-  showStudentFailure,
-  getObservationSuccess,
-  getObservationFailure,
-  showObservationSuccess,
-  showObservationFailure,
-  updateStudentSuccess,
-  updateStudentFailure,
-  updateObservationSuccess,
-  updateObservationFailure,
-  deleteStudentSuccess,
-  deleteStudentFailure,
-  deleteSettingSuccess,
-  deleteSettingFailure,
-  deleteObservationSuccess,
-  deleteObservationFailure,
+  createTrackerSuccess,
+  createTrackerFailure,
+  getTrackerSuccess,
+  getTrackerFailure,
+  showTrackerSuccess,
+  showTrackerFailure,
+  updateTrackerSuccess,
+  updateTrackerFailure,
+  deleteTrackerSuccess,
+  deleteTrackerFailure,
   signInSuccess,
-  onCreateObservationNumsSuccess,
-  onCreateObservationNumsFailure,
-  getPastObsNumSuccess,
-  getPastObsNumFailure,
+  signUpSuccess,
+  signUpFailure,
+  signInFailure,
+  changePasswordSuccess,
+  changePasswordFailure,
+  signOutSuccess,
+  signOutFailure,
+  showRow,
+  updateButtonInShow,
 };

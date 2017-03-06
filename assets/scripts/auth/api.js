@@ -42,11 +42,11 @@ const changePassword = function(data) {
   });
 };
 
-// Students API
+// Trackers API
 
-const getStudents = function() {
+const getTrackers = function() {
   return $.ajax({
-    url: config.apiOrigin + '/students/',
+    url: config.apiOrigin + '/trackers/',
     method: 'GET',
     headers: {
       Authorization: 'Token token=' + store.user.token,
@@ -54,9 +54,9 @@ const getStudents = function() {
   });
 };
 
-const showStudent = function() {
+const showTracker = function() {
   return $.ajax({
-    url: config.apiOrigin + '/students/' + document.getElementById("show-student-stud-id").value,
+    url: config.apiOrigin + '/trackers/' + store.buttonShowVal,
     method: 'GET',
     headers: {
       Authorization: 'Token token=' + store.user.token,
@@ -64,9 +64,9 @@ const showStudent = function() {
   });
 };
 
-const createStudent = function(data) {
+const createTracker = function(data) {
   return $.ajax({
-    url: config.apiOrigin + '/students/',
+    url: config.apiOrigin + '/trackers/',
     method: 'POST',
     headers: {
       Authorization: 'Token token=' + store.user.token,
@@ -75,9 +75,9 @@ const createStudent = function(data) {
   });
 };
 
-const deleteStudent = function() {
+const deleteTracker = function() {
   return $.ajax({
-    url: config.apiOrigin + '/students/' + document.getElementById("delete-student-stud-id").value,
+    url: config.apiOrigin + '/trackers/' + store.buttonDeleteVal,
     method: 'DELETE',
     headers: {
       Authorization: 'Token token=' + store.user.token,
@@ -85,9 +85,9 @@ const deleteStudent = function() {
   });
 };
 
-const updateStudent = function(data) {
+const updateTracker = function(data) {
   return $.ajax({
-    url: config.apiOrigin + '/students/' + document.getElementById("update-student-student-id").value,
+    url: config.apiOrigin + '/trackers/' + store.buttonUpdateVal,
     method: 'PATCH',
     headers: {
       Authorization: 'Token token=' + store.user.token,
@@ -96,127 +96,9 @@ const updateStudent = function(data) {
   });
 };
 
-// Settings API
-
-const getSettings = function() {
+const updateTrackerinShow = function(data) {
   return $.ajax({
-    url: config.apiOrigin + '/students/' + document.getElementById("get-setting-stud-id").value + '/settings',
-    method: 'GET',
-    headers: {
-      Authorization: 'Token token=' + store.user.token,
-    },
-  });
-};
-
-const showSetting = function() {
-  return $.ajax({
-    url: config.apiOrigin + '/settings/' + document.getElementById("show-setting-setting-id").value,
-    method: 'GET',
-    headers: {
-      Authorization: 'Token token=' + store.user.token,
-    },
-  });
-};
-
-const createSetting = function(data) {
-  return $.ajax({
-    url: config.apiOrigin + '/students/' + document.getElementById("create-setting-stud-id").value + '/settings',
-    method: 'POST',
-    headers: {
-      Authorization: 'Token token=' + store.user.token,
-    },
-    data,
-  });
-};
-
-const deleteSetting = function() {
-  return $.ajax({
-    url: config.apiOrigin + '/settings/' + document.getElementById("delete-setting-setting-id").value,
-    method: 'DELETE',
-    headers: {
-      Authorization: 'Token token=' + store.user.token,
-    },
-  });
-};
-
-const updateSetting = function(data) {
-  return $.ajax({
-    url: config.apiOrigin + '/settings/' + document.getElementById("update-setting-setting-id").value,
-    method: 'PATCH',
-    headers: {
-      Authorization: 'Token token=' + store.user.token,
-    },
-    data,
-  });
-};
-
-// Observations API
-
-const getObservations = function() {
-  return $.ajax({
-    url: config.apiOrigin + '/students/' + document.getElementById("get-obs-stud-id").value + '/settings/' + document.getElementById("get-obs-setting-id").value + '/observations',
-    method: 'GET',
-    headers: {
-      Authorization: 'Token token=' + store.user.token,
-    },
-  });
-};
-
-const getObservationsCreate = function() {
-  return $.ajax({
-    url: config.apiOrigin + '/students/' + store.currentStudentId + '/settings/' + store.currentSettingId + '/observations',
-    method: 'GET',
-    headers: {
-      Authorization: 'Token token=' + store.user.token,
-    },
-  });
-};
-
-const showObservation = function() {
-  return $.ajax({
-    url: config.apiOrigin + '/observations/' + document.getElementById("show-obs-setting-id").value,
-    method: 'GET',
-    headers: {
-      Authorization: 'Token token=' + store.user.token,
-    },
-  });
-};
-
-const createObservation = function(data) {
-  return $.ajax({
-    url: config.apiOrigin + '/students/' + document.getElementById("create-observation-stud-id").value + '/settings/' + document.getElementById("create-observation-setting-id").value + '/observations',
-    method: 'POST',
-    headers: {
-      Authorization: 'Token token=' + store.user.token,
-    },
-    data,
-  });
-};
-
-const preCreateObservation = function(data) {
-  return $.ajax({
-    url: config.apiOrigin + '/students/' + store.createSettingId + '/settings/' + document.getElementById("create-observation-setting-id").value + '/observations',
-    method: 'POST',
-    headers: {
-      Authorization: 'Token token=' + store.user.token,
-    },
-    data,
-  });
-};
-
-const deleteObservation = function() {
-  return $.ajax({
-    url: config.apiOrigin + '/observations/' + document.getElementById("delete-observation-obs-id").value,
-    method: 'DELETE',
-    headers: {
-      Authorization: 'Token token=' + store.user.token,
-    },
-  });
-};
-
-const updateObservation = function(data) {
-  return $.ajax({
-    url: config.apiOrigin + '/observations/' + document.getElementById("update-observation-obs-id").value,
+    url: config.apiOrigin + '/trackers/' + store.showId,
     method: 'PATCH',
     headers: {
       Authorization: 'Token token=' + store.user.token,
@@ -226,25 +108,14 @@ const updateObservation = function(data) {
 };
 
 module.exports = {
-  getStudents,
   signUp,
   signIn,
   signOut,
   changePassword,
-  createStudent,
-  deleteStudent,
-  createSetting,
-  createObservation,
-  showStudent,
-  getSettings,
-  showSetting,
-  getObservations,
-  showObservation,
-  updateSetting,
-  updateStudent,
-  updateObservation,
-  deleteSetting,
-  deleteObservation,
-  preCreateObservation,
-  getObservationsCreate,
+  getTrackers,
+  showTracker,
+  createTracker,
+  deleteTracker,
+  updateTracker,
+  updateTrackerinShow,
 };
