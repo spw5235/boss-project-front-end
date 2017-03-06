@@ -3,7 +3,7 @@
 const config = {
   apiOrigins: {
     // production: 'http://localhost:4741',
-    production: 'https://stud-tracker.herokuapp.com',
+    production: 'https://boss-api.herokuapp.com',
   },
 };
 
