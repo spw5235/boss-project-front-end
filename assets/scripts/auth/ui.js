@@ -4,12 +4,14 @@ const api = require('./api');
 const store = require('../store');
 const logic = require('./logic');
 
+let currentdata;
+
 const success = (data) => {
-  console.log('success completed');
+  currentdata = data;
 };
 
 const failure = (error) => {
-  console.error(error);
+  currentdata = error;
 };
 
 const signInSuccess = function() {
@@ -85,8 +87,7 @@ const signOutFailure = function() {
 //////////////////////
 
 const getTrackerFailure = (data) => {
-  console.log('get tracker failure');
-  console.log(data);
+  currentdata = data;
 };
 
 const updateRow = function() {
@@ -137,8 +138,7 @@ const updateButtonInShow = function() {
 };
 
 const showTrackerSuccess = (data) => {
-  console.log('show tracker success');
-  console.log(data);
+  currentdata = data;
   $("#show-records-btn").show();
   $("#update-form-error").hide();
   updateButtonInShow();
@@ -147,13 +147,11 @@ const showTrackerSuccess = (data) => {
 };
 
 const showTrackerFailure = (data) => {
-  console.log('show tracker failure');
-  console.log(data);
+  currentdata = data;
 };
 
 const createTrackerSuccess = (data) => {
-  console.log('create tracker success');
-  console.log(data);
+  currentdata = data;
   let form = document.getElementById("new-tracker-form");
   form.reset();
   $("#new-tracker-form").hide();
@@ -163,26 +161,21 @@ const createTrackerSuccess = (data) => {
 };
 
 const createTrackerFailure = (data) => {
-  console.log('create tracker failure');
-  console.log(data);
+  currentdata = data;
   $("#new-form-error").show();
 };
 
 const deleteTrackerSuccess = (data) => {
-  console.log('delete tracker success');
-  console.log(data);
+  currentdata = data;
   $(".warning").hide();
 };
 
 const deleteTrackerFailure = (data) => {
-  console.log('delete tracker failure');
-
-  console.log(data);
+  currentdata = data;
 };
 
 const updateTrackerSuccess = (data) => {
-  console.log('update tracker success');
-  console.log(data);
+  currentdata = data;
   $("#update-tracker-form").hide();
   $("#show-records-btn").show();
   let form = document.getElementById("update-tracker-form");
@@ -195,8 +188,7 @@ const updateTrackerSuccess = (data) => {
 const updateTrackerFailure = (data) => {
   $(".alert").hide();
   $("#update-form-error").show();
-  console.log('update tracker failure');
-  console.log(data);
+  currentdata = data;
 };
 
 const showRow = function() {
