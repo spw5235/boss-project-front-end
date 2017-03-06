@@ -165,7 +165,7 @@ const createTrackerFailure = (data) => {
   $("#new-form-error").show();
 };
 
-const deleteTrackerSuccess = () => {
+const deleteTrackerSuccess = function() {
   $(".warning").hide();
   $("#create-record-btn").show();
 };
