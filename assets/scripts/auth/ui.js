@@ -168,6 +168,7 @@ const createTrackerFailure = (data) => {
 const deleteTrackerSuccess = (data) => {
   currentdata = data;
   $(".warning").hide();
+  $("#create-record-btn").show();
 };
 
 const deleteTrackerFailure = (data) => {
