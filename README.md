@@ -2,11 +2,11 @@
 
 ## Application Overview
 
-School Counselors are responsible for keeping detailed notes on students.  Therefore, Counselor Notepad (formerly BOSS), was created so that counselors can keep detailed and organized notes on a student.  This application not only allows the user to create and view notes, but updates can be made when needed and the record can easily be deleted.
+School Counselors are responsible for keeping detailed notes on students.  Therefore, Counselor Notepad, was created so that counselors can keep detailed and organized notes on a student.  This application not only allows the user to create and view notes, but updates can be made when needed and the record can easily be deleted.
 
-Link to the live application: [https://spw5235.github.io/boss-project-front-end/](https://spw5235.github.io/boss-project-front-end/).
+Link to the live application: [https://spwisner.github.io/counselor-notepad/](https://spwisner.github.io/counselor-notepad/).
 
-Link to the API Source: [https://github.com/spw5235/boss-project-back-end](https://github.com/spw5235/boss-project-back-end).
+Link to the API Source: [https://github.com/spwisner/counselor-notepad-api](https://github.com/spwisner/counselor-notepad-api).
 
 ## Technologies Used
 
